@@ -1,0 +1,29 @@
+Requisitos
+----------------------------------------------------------
+n/a
+----------------------------------------------------------
+
+Descrição
+----------------------------------------------------------
+-> Um script invoca o algoritmo que resolve o PASG, lhe dando as sequências S e T e os conjuntos de segmentos de S e de T.
+-> O arquivo que contém os segmentos de S é copiado em um outro arquivo temporário temp
+-> A cada iteração, uma parte da partição de S é devolvida, cujos elementos são retirados de temp
+-> O laço continua sendo executado enquanto temp possui tamanho maior que 0, ou seja, ainda restam segmentos.
+-> Ao final, os arquivos temporários são removidos
+----------------------------------------------------------
+
+Executando
+----------------------------------------------------------
+invocar [./pasgHeuristic.sh T S > OUTPUT], onde:
+
+-> S é um arquivo fasta com a sequência S
+-> T é um arquivo fasta com a sequência T
+
+Devem existir, no meso diretório, os arquivos S.predex e T.predex com os segmentos ordenados de S e de T, respectivamente, da seguinte forma:
+1..23,4..34,10..43,...
+----------------------------------------------------------
+
+Saídas
+----------------------------------------------------------
+OUTPUT = contém os k pares (si, ti), ou seja, (Gamma_S, Gamma_T), e a pontuação de cada par de acordo com a função de pontuação que atribui 1 para matches, -1 para mismatches e -2 para gaps.
+
