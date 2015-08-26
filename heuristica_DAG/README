@@ -1,0 +1,60 @@
+Requisitos
+----------------------------------------------------------
+**pacote EMBOSS instalado e presente no PATH;
+**arquivo chamado scoring_matrix no mesmo diretório dos scripts com a função de pontuação a ser usada, exemplo:
+
+	A	C	G	T
+A	1	-1	-1	-1
+C	-1	1	-1	-1
+G	-1	-1	1	-1
+T	-1	-1	-1	1
+----------------------------------------------------------
+
+Descrição
+----------------------------------------------------------
+A heurísica DAG está dividia em 4 passos (scripts):
+
+1 - (theory.c) 
+	-> lê as sequências S e T e os conjuntos S e T
+	-> constrói a sequência consenso C
+	-> constrói um alinhamento ótimo M de C e T concatenado
+	-> constrói o grafo dirigido acíclico G.
+
+2 - (heuristica.c)
+	-> lê o grafo G
+	-> encontra todos os caminhos de maior peso em G.
+
+3 - (createPartition.c)
+	-> lê os caminhos encontrados em G.
+	-> define as k partes de S e k subconjunto de T.
+
+4 - (alignpairs.c)
+	-> lê as k partes de S e k subconjunto de T
+	-> contrói um alinhamento ótimo para cada par (si, ti)
+----------------------------------------------------------
+
+Executando
+----------------------------------------------------------
+Os 4 scripts são executados automaticamente ao invocar [./script.sh S T > OUTPUT], onde:
+
+-> S é um arquivo com a sequência S na primeira linha (sem quebra de linha) e os segmentos de S ordenados e um por linha, exemplo:
+
+AGCTATCGTAGCTAGCATCTACTTAC...
+1 23
+3 31
+5 36
+...
+
+-> T é um arquivo com a sequência T na primeira linha (sem quebra de linha) e os segmentos de T ordenados e um por linha, de acordo com o exemplo anterior.
+----------------------------------------------------------
+
+Saídas
+----------------------------------------------------------
+alignment.fa = alinhamento ótimo de C e T concatenado
+consensus.fa = sequência consenso C
+graph.in = matriz de adjacência do grafo G com os pesos
+OUTPUT = alinhamento ótimo dos k pares (si, ti)
+pairs.out = contém os k pares (si, ti), com os segmentos em s1 na primeira linha e t1 na segunda linha, s2 na terceira...
+paths.out = caminhos de maior peso encontrados em G
+Tconcatenado.fa = sequência resultante da concatenação dos elementos em T
+
